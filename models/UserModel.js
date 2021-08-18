@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const UserSchema = mongoose.Schema({
-    name: {
+    fullName: {
         type: String,
         default: '',
         required:true
@@ -11,10 +11,17 @@ const UserSchema = mongoose.Schema({
         minLength: 6,
         required:true
     },
+    
     email:{
         type:String,
-        validate: [validateEmail, 'Please fill a valid email address'],
-        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
+        validate: {
+            validator: function(v) {
+              return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(v);
+            },
+            message: props => `${props.value} is not a valid phone number!`
+          },
+          required: [true, 'User phone number required']
+        
     },
     
 });
