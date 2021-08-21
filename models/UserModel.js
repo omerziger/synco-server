@@ -1,28 +1,21 @@
 const mongoose = require('mongoose');
+const validator = require('validator');
 
 const UserSchema = mongoose.Schema({
     fullName: {
         type: String,
-        default: '',
-        required:true
+        required:[true, 'User must have a full name']
     },
     password: {
         type: String,
         minLength: 6,
+        maxlength: 16,
         required:true
     },
-    
     email:{
         type:String,
-        validate: {
-            validator: function(v) {
-              return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(v);
-            },
-            message: props => `${props.value} is not a valid phone number!`
-          },
-          required: [true, 'User phone number required']
-        
-    },
+        validate:validator.isEmail('foo@bar.com')
+    }
     
 });
 module.exports = mongoose.model('User', UserSchema);
