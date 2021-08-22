@@ -17,7 +17,8 @@ mongoose
     ),
     DBConnectionOptions
   )
-  .then(() => console.log('Server is integrated with MongoDB Cluster!'));
+  .then(() => console.log('Server is integrated with MongoDB Cluster!'))
+  .catch((error) => console.error(error));
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () =>
