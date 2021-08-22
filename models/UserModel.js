@@ -9,12 +9,12 @@ const UserSchema = mongoose.Schema({
     password: {
         type: String,
         minLength: 6,
-        maxlength: 16,
-        required:true
+        maxLength: 16,
+        required:[true, "can't be blank"]
     },
     email:{
         type:String,
-        validate:validator.isEmail('foo@bar.com')
+        validate:validator.isEmail()
     }
     
 });
